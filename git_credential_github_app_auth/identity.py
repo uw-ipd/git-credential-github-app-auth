@@ -14,13 +14,14 @@ class AppIdentity:
     """Manages a github app id/key pair and signed token generation.
 
     Manages initialization of an id/key pair from input parameters or, if not
-    provided, rom the corresponding `GH_APP_AUTH_ID` or `GH_APP_AUTH_KEY`
-    environment variable.  Both the id and key may be provided as the target
-    value *or* a path in the local filesystem containing the value.
+    provided, from the corresponding `GITHUB_APP_AUTH_ID` or
+    `GITHUB_APP_AUTH_KEY` environment variable.  Both the id and key may be
+    provided as the target value *or* a path in the local filesystem containing
+    the value.
     """
 
-    APP_ID_ENV_VAR = "GH_APP_AUTH_ID"
-    PRIVATE_KEY_ENV_VAR = "GH_APP_AUTH_KEY"
+    APP_ID_ENV_VAR = "GITHUB_APP_AUTH_ID"
+    PRIVATE_KEY_ENV_VAR = "GITHUB_APP_AUTH_KEY"
 
     @staticmethod
     def _resolve_app_id(app_id: Optional[Union[int, str]] = None):
