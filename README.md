@@ -26,7 +26,7 @@ for the application.
    environment.
 
   ```
-  pip install https://github.com/uw-ipd/git-credential-github-app-auth
+  pip install git+https://github.com/uw-ipd/git-credential-github-app-auth
   ```
 
 3. Add `github-app-auth` as a git-credential helper and ensure that

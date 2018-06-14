@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name="git-credential-github-app-auth",
@@ -22,7 +22,7 @@ setup(
 
     version='0.1.0',
 
-    py_modules=['git_credential_github_app_auth'],
+    packages=find_packages(),
     entry_points={
         'console_scripts' : [
         'git-credential-github-app-auth='
@@ -39,6 +39,4 @@ setup(
     ],
 
     test_requires=["pytest"],
-
-    zip_safe=False,
 )
