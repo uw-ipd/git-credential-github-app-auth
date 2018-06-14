@@ -1,4 +1,6 @@
 # `git-credential-github-app-auth`
+[![Build Status](
+https://travis-ci.org/uw-ipd/git-credential-github-app-auth.svg?branch=master)](https://travis-ci.org/uw-ipd/git-credential-github-app-auth)
 
 A minimal [`git-credential`](https://git-scm.com/docs/git-credential)
 helper for [https repository access via GitHub
