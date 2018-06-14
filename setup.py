@@ -29,6 +29,7 @@ setup(
             'git_credential_github_app_auth.cli:cli',
         ]
     },
+    python_requires='>=3.6',
     install_requires=[
         'click',
         'PyJWT',
