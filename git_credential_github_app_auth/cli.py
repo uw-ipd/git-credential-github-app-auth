@@ -59,7 +59,7 @@ def current(appidentity):
 @pass_appidentity
 @click.argument('account')
 def token(appidentity, account):
-    print(installation_token_for(account, appidentity))
+    print(json.dumps(installation_token_for(account, appidentity)))
 
 
 @cli.add_command
