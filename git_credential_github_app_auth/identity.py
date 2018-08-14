@@ -81,8 +81,8 @@ class AppIdentity:
         """
         issue_time = time.time() - 1
         payload = dict(
-          iat= issue_time,
-          exp= issue_time + (10 * 60),
+          iat= int(issue_time),
+          exp= int(issue_time + (10 * 60)),
           iss= self.app_id
         )
 

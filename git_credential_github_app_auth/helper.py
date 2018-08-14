@@ -8,10 +8,16 @@ logger = logging.getLogger(__name__)
 
 def app_session_for(app: AppIdentity) -> requests.Session:
     session = requests.Session()
-    session.headers.update({
+    headers = {
         "Authorization":"Bearer %s" % app.jwt(),
         "Accept": "application/vnd.github.machine-man-preview+json"
-    })
+    }
+    logger.debug(
+        f"app_session_for: "
+        f"-H 'Authorization: { headers['Authorization'] }' "
+        f"-H 'Accept: { headers['Accept'] }'"
+    )
+    session.headers.update(headers)
 
     return session
 
