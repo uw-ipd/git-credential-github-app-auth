@@ -1,5 +1,6 @@
 import logging
 import json
+import sys
 
 import click
 
@@ -66,16 +67,14 @@ def token(appidentity, account):
 @click.command(help="Credential storage helper implementation.")
 @pass_appidentity
 @click.argument('input', type=click.File('r'), default="-")
-@click.argument('output', type=click.File('w'), default="-")
-def get(appidentity, input, output):
+def get(appidentity, input):
     # https://git-scm.com/docs/git-credential
-    logger.debug("get id: %s input: %s output: %s", appidentity, input, output)
+    logger.debug("get id: %s input: %s", appidentity, input)
 
     def token_for_account(account):
         return installation_token_for(account, appidentity)["token"]
 
-    output.write(credential_helper(input.read(), token_for_account))
-    output.write("\n")
+    sys.stdout.write(credential_helper(input.read(), token_for_account))
 
 
 @cli.command(help="no-op git-credential interface")
