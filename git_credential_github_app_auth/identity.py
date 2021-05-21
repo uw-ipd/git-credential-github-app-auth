@@ -9,6 +9,7 @@ import jwt
 
 logger = logging.getLogger(__name__)
 
+
 @attr.s(frozen=True)
 class AppIdentity:
     """Manages a github app id/key pair and signed token generation.
@@ -31,7 +32,9 @@ class AppIdentity:
 
             app_id = os.getenv(AppIdentity.APP_ID_ENV_VAR)
             if app_id is None:
-                raise ValueError("Unable to resolve app_id from env: %s" % AppIdentity.APP_ID_ENV_VAR)
+                raise ValueError(
+                    "Unable to resolve app_id from env: %s" % AppIdentity.APP_ID_ENV_VAR
+                )
             logger.info("Resolved %s to app id: %s", AppIdentity.APP_ID_ENV_VAR, app_id)
 
         try:
@@ -51,7 +54,10 @@ class AppIdentity:
             logger.debug("Resolving private_key from env.")
             private_key = os.getenv(AppIdentity.PRIVATE_KEY_ENV_VAR)
             if private_key is None:
-                raise ValueError("Unable to resolve private_key from env: %s" % AppIdentity.PRIVATE_KEY_ENV_VAR)
+                raise ValueError(
+                    "Unable to resolve private_key from env: %s"
+                    % AppIdentity.PRIVATE_KEY_ENV_VAR
+                )
             logger.info("Resolved %s to private key.", AppIdentity.PRIVATE_KEY_ENV_VAR)
 
         if "BEGIN RSA PRIVATE KEY" in private_key:
@@ -63,14 +69,14 @@ class AppIdentity:
         logger.info("Resolved private key.")
         return private_key
 
-    app_id : int = attr.attrib(
+    app_id: int = attr.attrib(
         converter=_resolve_app_id.__func__,
-        default = attr.Factory(lambda: AppIdentity._resolve_app_id())
+        default=attr.Factory(lambda: AppIdentity._resolve_app_id()),
     )
-    private_key : str = attr.attrib(
+    private_key: str = attr.attrib(
         repr=False,
         converter=_resolve_key.__func__,
-        default = attr.Factory(lambda: AppIdentity._resolve_key())
+        default=attr.Factory(lambda: AppIdentity._resolve_key()),
     )
 
     def jwt(self) -> str:
@@ -81,11 +87,9 @@ class AppIdentity:
         """
         issue_time = time.time() - 1
         payload = dict(
-          iat= int(issue_time),
-          exp= int(issue_time + (10 * 60)),
-          iss= self.app_id
+            iat=int(issue_time), exp=int(issue_time + (10 * 60)), iss=self.app_id
         )
 
         logging.debug("Issuing app jwt: %s", payload)
 
-        return jwt.encode(payload, self.private_key, algorithm='RS256').decode()
+        return jwt.encode(payload, self.private_key, algorithm="RS256")
